@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>PDFダウンロードサイト</title>
+    <style>
+        .download-btn {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #ff4d4d; /* PDFっぽい赤色のボタン */
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+        }
+        .download-btn:hover {
+            background-color: #cc0000;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>ファイルのダウンロード</h2>
+    
+    <button onclick="forceDownload('a.pdf')" class="download-btn">
+        PDFファイルをダウンロード
+    </a>
+
+    <script>
+    function forceDownload(url) {
+        fetch(url)
+            .then(response => response.blob())
+            .then(blob => {
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'a.pdf'; // 保存するときのファイル名
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            })
+            .catch(() => alert('ファイルが見つからないか、開けません。index.htmlと同じ場所に a.pdf があるか確認してください！'));
+    }
+    </script>
+
+</body>
+</html>
